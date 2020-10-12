@@ -13,36 +13,13 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-const styles = {
-mainGrid:{
-display: 'flex'
-},
-form: {
-textAlign: 'center'
-},
-image:{
-    border: '1px solid black',
-    width: '50px',
-    borderRadius: '4px',
-    //top right bottom left
-    margin: '20px auto 20px auto'
-},
-pageTitle:{
-    margin: '10px auto 10px auto'
-},
-textField:{
-    margin: '20px auto 20px auto'
-},
-button:{
-    margin: '30px auto 10px auto',
-    width: "130px",
-    height: "25px",
-},
-customError:{
-    color: 'red',
-    fontSize: '0.8rem',
-}
-}
+
+
+const styles = (theme) => ({
+    ...theme.shared
+      })
+      
+  
 
 
 
@@ -52,7 +29,7 @@ customError:{
 
 export class login extends Component {
 
-    //controlled component using state
+    
     constructor(){
         super();
      this.state = {
@@ -80,14 +57,21 @@ handleSubmit = (event) => {
      loading:true
  });
 
+
  const user = {
 email: this.state.email,
 password: this.state.password,
 username: this.state.username,
 }
+ 
+
 
  axios.post('https://australia-southeast1-workservices-e4506.cloudfunctions.net/api/login',user)
 .then(res => {
+
+localStorage.setItem('FBToken', `${res.data.token}`);
+
+
     this.setState({
         loading: false
     });
