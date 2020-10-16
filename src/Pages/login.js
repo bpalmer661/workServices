@@ -13,53 +13,34 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-const styles = {
-mainGrid:{
-display: 'flex'
-},
-form: {
-textAlign: 'center'
-},
-image:{
-    border: '1px solid black',
-    width: '50px',
-    borderRadius: '4px',
-    //top right bottom left
-    margin: '20px auto 20px auto'
-},
-pageTitle:{
-    margin: '10px auto 10px auto'
-},
-textField:{
-    margin: '20px auto 20px auto'
-},
-button:{
-    margin: '30px auto 10px auto',
-    width: "130px",
-    height: "25px",
-},
-customError:{
-    color: 'red',
-    fontSize: '0.8rem',
-}
-}
+
+import { connect } from 'react-redux';
+import {loginUser } from '../redux/actions/userActions';
+
+
+import PropTypes from 'prop-types';
 
 
 
+
+const styles = (theme) => ({
+    ...theme.shared
+      })
+      
+  
 
 
 
 
 export class login extends Component {
 
-    //controlled component using state
+    
     constructor(){
         super();
      this.state = {
          email: "",
          password:"",
          username:"",
-         loading: false,
          errors:  {},
      }
 
@@ -76,29 +57,19 @@ handleChange = (event) => {
 
 handleSubmit = (event) => {
     event.preventDefault();
- this.setState({
-     loading:true
- });
+ 
+
 
  const user = {
 email: this.state.email,
 password: this.state.password,
 username: this.state.username,
 }
+ 
 
- axios.post('https://australia-southeast1-workservices-e4506.cloudfunctions.net/api/login',user)
-.then(res => {
-    this.setState({
-        loading: false
-    });
-    this.props.history.push('/')
-})
-.catch(err => {
-    this.setState({
-        errors: err.response.data,
-        loading: false,
-    })
-})
+this.props.loginUser(user,this.props.history);
+
+
 
 }
 
@@ -107,9 +78,9 @@ username: this.state.username,
 
     render() {
 
-const { classes } = this.props
+const { classes, UI: {loading} } = this.props
 
-const {errors, loading } = this.state
+const {errors } = this.state
 
 
         return (
@@ -198,6 +169,25 @@ const {errors, loading } = this.state
 }
 
 
+login.propTypes = {
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
+    
+}
+
+//takes in global state
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+})
+
+const mapActionsToProps = {
+    loginUser
+}
+
+export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles)(login));
 
 
-export default withStyles(styles)(login);
+
