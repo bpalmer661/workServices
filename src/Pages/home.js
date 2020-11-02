@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
  import Grid from '@material-ui/core/Grid'
 
-//npm i axios ///
  import axios from 'axios'
-
  import JobPost from '../Components/JobPost'
 
+  ///////lesson 25////// 
+import Profile from '../Components/Profile'
+ ///////lesson 25////// 
 
 
 
 export class home extends Component {
 
 
-////////
 
 state = {
     jobPosts: []
@@ -49,7 +49,9 @@ this.setState({
 
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <p> profile</p>
+                    {/* ///////lesson 25////// */}
+                    <Profile/>
+                    {/* ///////lesson 25////// */}
                 </Grid>
             </Grid>
             

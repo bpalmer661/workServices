@@ -43,8 +43,6 @@ const styles = {
 
         const { classes, jobPost : {createdAt,
             jobDescription,
-            jobPostDefaultImage,
-            jobTitle,
             userImageUrl,
             username}} = this.props
             
