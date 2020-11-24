@@ -50,10 +50,15 @@ max-width: 1200px;
 
 .nav-container{
   margin: auto;
+
 }
 
+/* ///////lesson 28//////// */
+.nav-container svg{
+  color: #fff;
+}
+/* ///////lesson 28//////// */
 
-/* lesson 19 */
 a{
   text-decoration: none;
 }
